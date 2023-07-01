@@ -1,15 +1,20 @@
-class Phonebook:
 
+class Phonebook:
+    """
+    Classe Phonebook
+    """
     def __init__(self):
+        #Inicializa a agenda telefônica com uma entrada predefinida
         self.entries = {'POLICIA': '190'}
 
     def add(self, name, number):
         """
+        Adiciona um nome e número à agenda telefônica.
 
-        :param name: name of person in string
-        :param number: number of person in string
-        :return: 'Nome invalido' or 'Numero invalido' or 'Numero adicionado'
-        """
+        :param name: Nome da pessoa em formato de string
+        :param number: Número de telefone da pessoa em formato de string
+        :return: 'Nome inválido', 'Número inválido', 'Número adicionado' ou 'Nome duplicado'
+
         if '#' in name:
             return 'Nome invalido'
         if '@' in name:
@@ -28,13 +33,30 @@ class Phonebook:
             self.entries[name] = number
 
         return 'Numero adicionado'
+        """
+
+        invalid_chars = ['#', '@', '!', '$', '%']
+        for char in invalid_chars:
+            if char in name:
+                return 'Nome inválido'
+
+        if len(number) == 0:
+            return 'Número inválido'
+
+        if name not in self.entries:
+        #Adiciona o nome e número fornecidos à agenda telefônica
+            self.entries[name] = number
+            return 'Número adicionado'
+        else:
+            return 'Nome duplicado'
 
     def lookup(self, name):
         """
-        :param name: name of person in string
-        :return: return number of person with name
-        """
-        if '#' in name:
+         Busca o número de telefone de uma pessoa pelo nome.
+        :param name: Nome da pessoa em formato de string
+        :return: Número de telefone da pessoa ou 'Nome não encontrado'
+
+         if '#' in name:
             return 'Nome invaldo'
         if '@' in name:
             return 'Nome invalido'
@@ -46,54 +68,61 @@ class Phonebook:
             return 'Nome nvalido'
 
         return self.entries[name]
+        """
+
+        if name in self.entries:
+        #Retorna o número de telefone correspondente ao nome fornecido
+            return self.entries[name]
+        else:
+            return 'Nome não encontrado'
 
     def get_names(self):
         """
-
-        :return: return all names in phonebook
+        Retorna uma lista com todos os nomes presentes na agenda telefônica.
+        :return: Lista de nomes
         """
-        return self.entries.keys()
+        return list(self.entries.keys())
 
     def get_numbers(self):
         """
-
-        :return: return all numbers in phonebook
+        Retorna uma lista com todos os números presentes na agenda telefônica.
+        :return: Lista de números
         """
-        return self.entries.values()
+        return list(self.entries.values())
 
     def clear(self):
         """
-        Clear all phonebook
-        :return: return 'phonebook limpado'
+        Remove todas as entradas da agenda telefônica.
+       :return: Mensagem de confirmação 'Phonebook limpado'
         """
         self.entries = {}
-        return 'phonebook limpado'
+        return 'Phonebook limpado'
 
     def search(self, search_name):
         """
-        Search all substring with search_name
-        :param search_name: string with name for search
-        :return: return list with results of search
+        Busca todas as entradas da agenda telefônica que contenham uma substring fornecida.
+        :param search_name: Substring a ser pesquisada
+        :return: Lista de resultados da pesquisa (dicionários contendo nome e número)
         """
         result = []
         for name, number in self.entries.items():
-            if search_name not in name:
-                result.append({name, number})
+            if search_name in name:
+                result.append({name: number})
         return result
 
     def get_phonebook_sorted(self):
         """
-
-        :return: return phonebook in sorted order
+        Retorna a agenda telefônica em ordem alfabética.
+        :return: Agenda telefônica ordenada
         """
-        return self.entries
+        return dict(sorted(self.entries.items()))
 
     def get_phonebook_reverse(self):
         """
-
-        :return: return phonebook in reverse sorted order
+        Retorna a agenda telefônica em ordem alfabética inversa.
+        :return: Agenda telefônica em ordem reversa
         """
-        return self.entries
+        return dict(sorted(self.entries.items(), reverse=True))
 
     def delete(self, name):
         """

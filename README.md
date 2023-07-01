@@ -48,7 +48,7 @@ python -m coverage run -m unittest
 To view report in terminal:
 
 ```bash
-python -m coverage report
+ python -m coverage report
 ```
 
 To view report in HTML:
