@@ -162,3 +162,33 @@ class TestPhonebook:
         expected = 'Nome não encontrado'
         result = phone.delete('Maria')
         assert result == expected
+
+    def test_change_number_sucess(self):
+        # Testa a alteração de um número de telefone
+        phone = Phonebook()
+        phone.add('Joao', '123456789')
+        expected = 'Número alterado'
+        result = phone.change_number('Joao', '987654321')
+        assert result == expected
+
+    def test_change_number_contact_not_found(self):
+        # Testa a alteração de um número de telefone de um contato que não existe
+        phone = Phonebook()
+        expected = 'Nome não encontrado'
+        result = phone.change_number('Joao', '987654321')
+        assert result == expected
+
+    def test_get_name_by_number_success(self):
+        # Testa a obtenção de um nome pelo número de telefone
+        phone = Phonebook()
+        phone.add('Joao', '123456789')
+        expected = 'Joao'
+        result = phone.get_name_by_number('123456789')
+        assert result == expected
+
+    def test_get_name_by_number_not_found(self):
+        # Testa a obtenção de um nome pelo número de telefone
+        phone = Phonebook()
+        expected = 'Número não encontrado'
+        result = phone.get_name_by_number('123456789')
+        assert result == expected

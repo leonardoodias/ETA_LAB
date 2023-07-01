@@ -109,3 +109,16 @@ class Phonebook:
             return 'Número deletado'
         else:
             return 'Nome não encontrado'
+
+    def change_number(self, name, number):
+        if name in self.entries:
+            self.entries[name] = number
+            return 'Número alterado'
+        else:
+            return 'Nome não encontrado'
+
+    def get_name_by_number(self, number):
+        for name, phone_number in self.entries.items():
+            if phone_number == number:
+                return name
+        return 'Número não encontrado'
