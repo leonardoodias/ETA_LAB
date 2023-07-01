@@ -16,6 +16,14 @@ class TestPhonebook:
         expected = 'Nome inválido'
         assert result == expected
 
+    def test_add_duplicate_name(self):
+        # Testa a adição de um nome duplicado
+        phone = Phonebook()
+        phone.add('Joao', '123456789')
+        expected = 'Nome duplicado'
+        result = phone.add('Joao', '987654321')
+        assert result == expected
+
     def test_add_invalid_number(self):
         # Testa a adição de um número de telefone inválido
         phone = Phonebook()
@@ -71,6 +79,15 @@ class TestPhonebook:
             phone.add(name, number)
 
         result = phone.search('Leonardo')
+        assert result == expected
+
+    def test_search_partial_name(self):
+        # Testa a busca por um nome parcial
+        phone = Phonebook()
+        expected = [{'Joao': '123456789'}, {'Joana': '987654321'}]
+        phone.add('Joao', '123456789')
+        phone.add('Joana', '987654321')
+        result = phone.search('Jo')
         assert result == expected
 
     def test_search_not_found(self):
